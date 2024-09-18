@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "51898175839",
+    "project_id": "fores-b2521",
+    "storage_bucket": "fores-b2521.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51898175839:android:1cf2b765a0471040e9e6ea",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8se2vqt4mlCvhPcrMjHEegBzj_j0y5yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
