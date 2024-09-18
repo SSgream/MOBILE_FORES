@@ -5,27 +5,39 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Splashscreen">
+    tools:context=".Splashscreen"
+    android:background="@color/sigelap1">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="286dp"
         android:layout_height="201dp"
-        android:src="@drawable/contoh"
+        android:src="@drawable/f_res__1___1_"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.309"
+
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:layout_width="390dp"
+        android:layout_height="45dp"
+        android:text="FOOD WASTE AND FOOD LOSS
+        DISTRIBUTION SERVICE APPLICATION"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="376dp" />
 
     <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="286dp"
         android:layout_height="70dp"
         android:indeterminate="true"
-        android:indeterminateTint="@color/design_default_color_primary_dark"
+        android:indeterminateTint="@color/sigelap5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
