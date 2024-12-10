@@ -18,17 +18,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.Home.HomeScreen
 import com.example.myapplication.ui.Login.LoginScreen
 import com.example.myapplication.ui.Notification.Notification
-import com.example.myapplication.ui.Post.Postingan
+import com.example.myapplication.ui.Posts.Postingan
 import com.example.myapplication.ui.Profile.Profile
 import com.example.myapplication.ui.Splashscreen.SplashScreen
 import com.example.myapplication.ui.navigation.BottomBar
 import com.example.myapplication.ui.navigation.BottomBarScreen
+import com.example.myapplication.ui.navigation.CustomBottomBar
 import com.example.myapplication.ui.orders.order
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.google.firebase.auth.FirebaseAuth
@@ -100,3 +102,24 @@ class MainActivity : ComponentActivity() {
 //        }
 //    }
 }
+
+@Composable
+fun BottomBar(navController: NavController) {
+    val items = listOf(
+        BottomBarScreen.Home,
+        BottomBarScreen.Order,
+        BottomBarScreen.Post,
+        BottomBarScreen.Notification,
+        BottomBarScreen.Profile
+    )
+
+    val currentRoute = navController.currentBackStackEntry?.destination?.route
+    CustomBottomBar(selectedRoute = currentRoute ?: "") { selectedRoute ->
+        navController.navigate(selectedRoute) {
+            popUpTo(navController.graph.startDestinationId) { saveState = true }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+}
+

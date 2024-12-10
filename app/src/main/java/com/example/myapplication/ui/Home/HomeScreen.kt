@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
 
 @Composable
@@ -50,47 +51,47 @@ fun HomeScreen(navController: NavController) {
             .padding(horizontal = 16.dp)
     ) {
 
-//        Text(text = "Deliver to", fontSize = 16.sp)
-//        // Bagian header (lokasi dan ikon keranjang)
-//        Row(
-//            horizontalArrangement = Arrangement.SpaceBetween,
-//            modifier = Modifier.fillMaxWidth(),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            Text(text = "Select Your Location", fontSize = 16.sp, color = Color.Gray)
-//            IconButton(onClick = { /* Aksi keranjang */ }) {
-//                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
-//            }
-//        }
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        // Banner Carousel
-//        OfferCard()
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        // Search Bar
-//        SearchBar()
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        // Kategori Produk
-//        CategoriesSection()
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        // Penawaran Spesial
-//        SpecialOffersSection()
+        Text(text = "Deliver to", fontSize = 16.sp)
+        // Bagian header (lokasi dan ikon keranjang)
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = "Select Your Location", fontSize = 16.sp, color = Color.Gray)
+            IconButton(onClick = { /* Aksi keranjang */ }) {
+                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Banner Carousel
+        OfferCard()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Search Bar
+        SearchBar()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Kategori Produk
+        CategoriesSection()
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Penawaran Spesial
+        SpecialOffersSection()
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text = "Home Screen", fontSize = 24.sp, color = Color.Black)
-    }
+//    Box(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .background(Color.White),
+//        contentAlignment = Alignment.Center
+//    ) {
+//        Text(text = "Home Screen", fontSize = 24.sp, color = Color.Black)
+//    }
 }
 
 @Composable
@@ -238,5 +239,5 @@ fun SpecialOfferItem(productName: String, price: String, imageRes: Int) {
 //@Preview(showBackground = true)
 //@Composable
 //fun TampilanHomeScreen() {
-//    HomeScreen()
+//    HomeScreen(navController = rememberNavController())
 //}

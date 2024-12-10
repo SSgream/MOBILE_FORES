@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "915632387981",
+    "project_id": "mobile-f431b",
+    "storage_bucket": "mobile-f431b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915632387981:android:651c306e1e71565d43efc4",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDjxAkgfV1rwrNIYU2uLWwFRhP8T56AYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
