@@ -45,6 +45,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,192 +57,149 @@ import com.example.myapplication.ui.theme.MyApplicationTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
-    var phoneNumber by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var rememberMe by remember { mutableStateOf(false) }
-    var expanded by remember { mutableStateOf(false) }
-    var selectedCode by remember { mutableStateOf("+62") }
 
-    val countryCodes = listOf("+62", "+1", "+91") // Contoh kode negara
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Column(
-            modifier = Modifier.weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
-            Text(
-                text = "Login",
-                color = (colorResource(R.color.sigelap2)),
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(24.dp)
-            )
-
-            // Dropdown Kode Negara + Input Nomor Telepon
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded }
+    Scaffold(
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Top, // Mengatur agar elemen-elemen dimulai dari atas
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .border(1.dp, colorResource(R.color.sigelap2), RoundedCornerShape(8.dp))
-                        .padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                // Bagian Atas: Judul Login
+
+                Spacer(modifier = Modifier.height(130.dp))
+
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text(text = selectedCode)
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Login",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.sigelap2),
+                        modifier = Modifier.padding(bottom = 8.dp) // Mengurangi padding bawah agar lebih dekat dengan email
+                    )
+                }
+
+                // Bagian Tengah: Form Login
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     TextField(
-                        value = phoneNumber,
-                        onValueChange = { phoneNumber = it },
-                        label = { Text("00 0000 0000") },
-                        modifier = Modifier.weight(1f),
-                        colors = TextFieldDefaults.run {
-                            textFieldColors(
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent
+                        value = email,
+                        onValueChange = { email = it },
+                        label = { Text("Email") },
+                        placeholder = { Text("Enter your email") },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp), // Jaga padding antar form
+                        shape = RoundedCornerShape(8.dp)
+                    )
+
+                    TextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        label = { Text("Password") },
+                        placeholder = { Text("Enter your password") },
+                        visualTransformation = PasswordVisualTransformation(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        shape = RoundedCornerShape(8.dp)
+                    )
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Checkbox(
+                            checked = rememberMe,
+                            onCheckedChange = { rememberMe = it }
+                        )
+                        Text(text = "Remember me", modifier = Modifier.padding(start = 8.dp))
+                    }
+                }
+
+                // Menambahkan Spacer untuk mendorong tombol dan social login ke bawah
+                Spacer(modifier = Modifier.weight(1f))
+
+                // Bagian Bawah: Tombol dan Social Media Login
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Button(
+                        onClick = {
+                            navController.navigate("home") {
+                                popUpTo("login") { inclusive = true }
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            colorResource(id = R.color.sigelap2)
+                        ),
+                        shape = RoundedCornerShape(50)
+                    ) {
+                        Text(text = "Sign in", color = Color.White)
+                    }
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    ) {
+                        Divider(modifier = Modifier.weight(1f))
+                        Text(text = "Or sign in with", modifier = Modifier.padding(horizontal = 8.dp))
+                        Divider(modifier = Modifier.weight(1f))
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        IconButton(onClick = { /* Handle Google Login */ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                contentDescription = "Google"
                             )
                         }
-                    )
-                    IconButton(onClick = { expanded = !expanded }) {
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-                    }
-                }
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    countryCodes.forEach { code ->
-                        DropdownMenuItem(onClick = {
-                            selectedCode = code
-                            expanded = false
-                        }) {
-                            Text(text = code) // Menampilkan teks kode negara
+                        IconButton(onClick = { /* Handle Facebook Login */ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                contentDescription = "Facebook"
+                            )
+                        }
+                        IconButton(onClick = { /* Handle Apple Login */ }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                                contentDescription = "Apple"
+                            )
                         }
                     }
-                }
-            }
-        }
 
-        // Checkbox Remember Me
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Checkbox(
-                checked = rememberMe,
-                onCheckedChange = { rememberMe = it }
-            )
-            Text("Remember me")
-        }
-
-        Spacer(modifier = Modifier.height(350.dp))
-
-
-
-        // Tombol Sign In
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-
-        ) {
-            Spacer(modifier = Modifier.height(16.dp))
-
-
-            Button(
-                onClick = {
-                    navController.navigate("home") {
-                        popUpTo("login") { inclusive = true }
+                    TextButton(onClick = { navController.navigate("register") }) {
+                        Text(text = "Don't have an account? Register", color = Color(0xFF4CAF50))
                     }
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    colorResource(id = R.color.sigelap2)
-                ),
-                shape = RoundedCornerShape(50) // Sudut bulat pada tombol
-            ) {
-                Text("Sign in", color = Color.White)
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Garis pembatas
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Divider(modifier = Modifier.weight(1f))
-                Text("Or sign in with")
-                Divider(modifier = Modifier.weight(1f))
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Login dengan akun media sosial
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                IconButton(onClick = { /* Handle Google Login */ }) {
-                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Google")
                 }
-                IconButton(onClick = { /* Handle Facebook Login */ }) {
-                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Facebook")
-                }
-                IconButton(onClick = { /* Handle Apple Login */ }) {
-                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Apple")
-                }
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Text Register
-            TextButton(onClick = { navController.navigate("register") }) {
-                Text(
-                    text = "Don't have an account? Register",
-                    color = Color(0xFF4CAF50)
-                )
             }
         }
-    }
+    )
 }
-
-@Composable
-fun DropdownMenuItem(
-    onClick: () -> Unit,
-    content: @Composable () -> Unit // Parameter untuk konten yang akan ditampilkan
-) {
-    // Menggunakan Modifier untuk membuat item bisa diklik
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick) // Menangani klik
-            .padding(16.dp) // Memberikan padding
-    ) {
-        content() // Menampilkan konten yang diberikan
-    }
-}
-
-
 @Preview(showBackground = true)
 @Composable
-fun TampilanLogin() {
+fun PreviewLoginScreen() {
     LoginScreen(navController = rememberNavController())
 }
