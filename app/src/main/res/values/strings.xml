@@ -13,4 +13,7 @@
     <string name="title_activity_order">order</string>
     <string name="title_activity_postingan">Postingan</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_crop_failure">CropFailure</string>
+    <string name="title_activity_edible_food">EdibleFood</string>
+    <string name="title_activity_expired_food">ExpiredFood</string>
 </resources>
