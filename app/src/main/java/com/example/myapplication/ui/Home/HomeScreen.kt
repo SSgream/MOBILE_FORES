@@ -1,13 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.ui.Home
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,10 +24,8 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,26 +37,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.navigation.NavController
+import com.example.myapplication.R
 
-class Coba : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MyApplicationTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-////                    Greeting(
-////                        name = "Android",
-////                        modifier = Modifier.padding(innerPadding)
-//                    )
-
-            }
-        }
-    }
-}
 @Composable
-fun HomeScreewn() {
+fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,38 +50,46 @@ fun HomeScreewn() {
             .padding(horizontal = 16.dp)
     ) {
 
-        Text(text = "Deliver to", fontSize = 16.sp)
-        // Bagian header (lokasi dan ikon keranjang)
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = "Select Your Location", fontSize = 16.sp, color = Color.Gray)
-            IconButton(onClick = { /* Aksi keranjang */ }) {
-                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Banner Carousel
-        OfferCard()
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Search Bar
-        SearchBar()
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Kategori Produk
-        CategoriesSection()
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Penawaran Spesial
-        SpecialOffersSection()
+//        Text(text = "Deliver to", fontSize = 16.sp)
+//        // Bagian header (lokasi dan ikon keranjang)
+//        Row(
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            Text(text = "Select Your Location", fontSize = 16.sp, color = Color.Gray)
+//            IconButton(onClick = { /* Aksi keranjang */ }) {
+//                Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "Cart")
+//            }
+//        }
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        // Banner Carousel
+//        OfferCard()
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        // Search Bar
+//        SearchBar()
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        // Kategori Produk
+//        CategoriesSection()
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        // Penawaran Spesial
+//        SpecialOffersSection()
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(text = "Home Screen", fontSize = 24.sp, color = Color.Black)
     }
 }
 
@@ -120,7 +108,7 @@ fun SearchBar() {
             onValueChange = {},
             placeholder = { Text("Search") },
 
-        )
+            )
     }
 }
 
@@ -247,8 +235,8 @@ fun SpecialOfferItem(productName: String, price: String, imageRes: Int) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreen() {
-    HomeScreewn()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TampilanHomeScreen() {
+//    HomeScreen()
+//}

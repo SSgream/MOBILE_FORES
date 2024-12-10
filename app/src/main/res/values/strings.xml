@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_home">HomeActivity</string>
-    <string name="title_activity_splash_screenn">SplashScreenn</string>
-    <string name="title_activity_register">RegisterActivity</string>
-    <string name="title_activity_coba">Coba</string>
+    <string name="edible_food">edibleFood</string>
+    <string name="expired_food">expiredFood</string>
+    <string name="crop_failure">CropFailure</string>
+    <string name="home_screen">HomeScreen</string>
+    <string name="login_screen">LoginScreen</string>
+    <string name="register_screen">RegisterScreen</string>
+    <string name="splash_screen">SplashScreen</string>
+    <string name="main_activity" />
+    <string name="title_activity_bottom_bar">BottomBar</string>
+    <string name="title_activity_notification">Notification</string>
+    <string name="title_activity_order">order</string>
+    <string name="title_activity_postingan">Postingan</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>

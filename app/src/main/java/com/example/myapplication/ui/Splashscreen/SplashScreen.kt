@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.Splashscreen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,42 +28,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import kotlinx.coroutines.delay
-
-class SplashScreenn : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MyApplicationTheme {
-                setContent {
-
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun SplashScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(id = R.color.sigelap3)), // Sesuaikan dengan warna background Anda
+            .background(colorResource(id = R.color.sigelap3)),
     ) {
         Image(
             painter = painterResource(id = R.drawable.f_res__1___1_),
             contentDescription = "Logo",
-            modifier = Modifier.align(Alignment.Center) // Tetap di tengah
+            modifier = Modifier.align(Alignment.Center)
         )
 
-        // Teks dan progress bar berada di bawah
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 50.dp) // Sesuaikan jarak dari bawah layar
-                .align(Alignment.BottomCenter), // Mengatur posisinya di bawah
+                .padding(bottom = 50.dp)
+                .align(Alignment.BottomCenter),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Waste Less, Save More", color = Color.White, fontSize = 24.sp)
@@ -79,13 +64,16 @@ fun SplashScreen(navController: NavController) {
 
     // Navigasi otomatis ke halaman login setelah beberapa detik
     LaunchedEffect(Unit) {
-        delay(3000) // Menunggu 3 detik
-        navController.navigate("login")
+        // Tunggu selama 3 detik, kemudian navigasi ke halaman login
+        delay(3000)
+        navController.navigate("login") {
+            popUpTo("splash") { inclusive = true }
+        }
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun previewSplashScreen(){
-//    SplashScreen(navController = rememberNavController())
-//}
+@Preview(showBackground = true)
+@Composable
+fun tampilan(){
+    SplashScreen(navController = rememberNavController())
+}

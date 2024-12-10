@@ -13,37 +13,34 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
-            android:name=".Coba"
+            android:name=".ui.Profile.Profile"
             android:exported="false"
-            android:label="@string/title_activity_coba"
+            android:label="@string/title_activity_profile"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.Post.Postingan"
             android:exported="false"
-            android:label="@string/title_activity_register"
+            android:label="@string/title_activity_postingan"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".SplashScreenn"
+            android:name=".ui.orders.order"
             android:exported="false"
-            android:label="@string/title_activity_splash_screenn"
+            android:label="@string/title_activity_order"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.Notification.Notification"
             android:exported="false"
-            android:label="@string/title_activity_home"
+            android:label="@string/title_activity_notification"
             android:theme="@style/Theme.MyApplication" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.navigation.BottomBar"
             android:exported="false"
-            android:label="@string/title_activity_login"
+            android:label="@string/title_activity_bottom_bar"
             android:theme="@style/Theme.MyApplication" />
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Splashscreen"
             android:exported="true"
-            android:label="@string/app_name"
+            android:label="@string/main_activity"
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

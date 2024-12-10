@@ -1,13 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.ui.Login
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,15 +24,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -52,91 +45,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-
-class LoginActivity : ComponentActivity() {
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-            
-
-        setContent {
-            MyApplicationTheme {
-                ShortcutInfoCompat.Surface()
-//                    modifier = Modifier.fillMaxSize(),
-//                    color = colorResource(id = R.color.sigelap1)
-//                ) {
-//                    LoginScreen(
-//                        onSignIn = { email, password -> signIn(email, password) },
-//                        onSignUp = { email, password -> signUp(email, password) },
-//                        onGoogleSignIn = { /* Handle Google Sign-In */ }
-//                    )
-                }
-            }
-        }
-    }
-
-//    private fun signIn(email: String, password: String) {
-//        auth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    Log.d(TAG, "signInWithEmail:success")
-//                    val user = auth.currentUser
-//                    updateUI(user)
-//                } else {
-//                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-//                    Toast.makeText(
-//                        baseContext,
-//                        "Autentikasi gagal.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    updateUI(null)
-//                }
-//            }
-//    }
-//
-//    private fun signUp(email: String, password: String) {
-//        auth.createUserWithEmailAndPassword(email, password)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    Log.d(TAG, "createUserWithEmail:success")
-//                    val user = auth.currentUser
-//                    updateUI(user)
-//                } else {
-//                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-//                    Toast.makeText(
-//                        baseContext,
-//                        "Autentikasi gagal.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    updateUI(null)
-//                }
-//            }
-//    }
-//
-//    private fun updateUI(user: FirebaseUser?) {
-//        if (user != null) {
-//            // Navigasi ke HomeActivity setelah login berhasil
-//            startActivity(Intent(this, HomeActivity::class.java))
-//            finish() // Menutup LoginActivity
-//        }
-//    }
-//
-//    companion object {
-//        private const val TAG = "LoginActivity"
-//    }
-//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -190,9 +105,9 @@ fun LoginScreen(navController: NavController) {
                         modifier = Modifier.weight(1f),
                         colors = TextFieldDefaults.run {
                             textFieldColors(
-                                            focusedIndicatorColor = Color.Transparent,
-                                            unfocusedIndicatorColor = Color.Transparent
-                                        )
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent
+                            )
                         }
                     )
                     IconButton(onClick = { expanded = !expanded }) {
@@ -248,7 +163,9 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-                    navController.navigate("home")
+                    navController.navigate("home") {
+                        popUpTo("login") { inclusive = true }
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -283,13 +200,13 @@ fun LoginScreen(navController: NavController) {
                     .padding(16.dp)
             ) {
                 IconButton(onClick = { /* Handle Google Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Google")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Google")
                 }
                 IconButton(onClick = { /* Handle Facebook Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Facebook")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Facebook")
                 }
                 IconButton(onClick = { /* Handle Apple Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Apple")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Apple")
                 }
             }
 
@@ -322,10 +239,9 @@ fun DropdownMenuItem(
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
-fun previewLoginActivity(){
+fun TampilanLogin() {
     LoginScreen(navController = rememberNavController())
 }
-
-

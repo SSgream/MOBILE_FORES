@@ -1,14 +1,10 @@
-package com.example.myapplication
+package com.example.myapplication.ui.Register
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -49,20 +45,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
-
-class RegisterActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            MyApplicationTheme {
-                setContent {}
-
-            }
-        }
-    }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,81 +81,81 @@ fun RegisterActivity(navController: NavController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-
-            ){
-                // Dropdown Kode Negara + Input Nomor Telepon
-                ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = { expanded = !expanded }) {
-                            Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-                        }
-                        Text(text = selectedCode)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        TextField(
-                            value = phoneNumber,
-                            onValueChange = { phoneNumber = it },
-                            label = { Text("00 0000 0000") },
-                            modifier = Modifier.weight(1f),
-                            colors = TextFieldDefaults.run {
-                                textFieldColors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                )
-                            }
-                        )
-
-                    }
-                    ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        countryCodes.forEach { code ->
-                            DropdownMenuItem(onClick = {
-                                selectedCode = code
-                                expanded = false
-                            }) {
-                                Text(text = code) // Menampilkan teks kode negara
-                            }
-                        }
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                TextField(
-                    value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email") },
-                    modifier = Modifier.fillMaxWidth(),
-//                    colors = TextFieldDefaults.textFieldColors(
-//                        backgroundColor = Color.LightGray, // Ubah ini dengan warna yang kamu inginkan
-//                        focusedIndicatorColor = Color.Transparent, // Hapus garis bawah saat fokus
-//                        unfocusedIndicatorColor = Color.Transparent
-//                    )
-                )
-
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                TextField(
-                    value = phoneNumber,
-                    onValueChange = { phoneNumber = it },
-                    label = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-
-            }
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//
+//                ){
+//                // Dropdown Kode Negara + Input Nomor Telepon
+//                ExposedDropdownMenuBox(
+//                    expanded = expanded,
+//                    onExpandedChange = { expanded = !expanded }
+//                ) {
+//                    Row(
+//                        modifier = Modifier
+//                            .fillMaxWidth(),
+//                        verticalAlignment = Alignment.CenterVertically
+//                    ) {
+//                        IconButton(onClick = { expanded = !expanded }) {
+//                            Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+//                        }
+//                        Text(text = selectedCode)
+//                        Spacer(modifier = Modifier.width(8.dp))
+//                        TextField(
+//                            value = phoneNumber,
+//                            onValueChange = { phoneNumber = it },
+//                            label = { Text("00 0000 0000") },
+//                            modifier = Modifier.weight(1f),
+//                            colors = TextFieldDefaults.run {
+//                                textFieldColors(
+//                                    focusedIndicatorColor = Color.Transparent,
+//                                    unfocusedIndicatorColor = Color.Transparent
+//                                )
+//                            }
+//                        )
+//
+//                    }
+//                    ExposedDropdownMenu(
+//                        expanded = expanded,
+//                        onDismissRequest = { expanded = false }
+//                    ) {
+//                        countryCodes.forEach { code ->
+//                            DropdownMenuItem(onClick = {
+//                                selectedCode = code
+//                                expanded = false
+//                            }) {
+//                                Text(text = code) // Menampilkan teks kode negara
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                TextField(
+//                    value = email,
+//                    onValueChange = { email = it },
+//                    label = { Text("Email") },
+//                    modifier = Modifier.fillMaxWidth(),
+////                    colors = TextFieldDefaults.textFieldColors(
+////                        backgroundColor = Color.LightGray, // Ubah ini dengan warna yang kamu inginkan
+////                        focusedIndicatorColor = Color.Transparent, // Hapus garis bawah saat fokus
+////                        unfocusedIndicatorColor = Color.Transparent
+////                    )
+//                )
+//
+//
+//                Spacer(modifier = Modifier.height(16.dp))
+//
+//                TextField(
+//                    value = phoneNumber,
+//                    onValueChange = { phoneNumber = it },
+//                    label = { Text("Password") },
+//                    modifier = Modifier.fillMaxWidth()
+//                )
+//
+//
+//            }
 
             Spacer(modifier = Modifier.height(300.dp))
 
@@ -182,7 +166,7 @@ fun RegisterActivity(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
-                        colorResource(id = R.color.sigelap2)
+                    colorResource(id = R.color.sigelap2)
                 ),
                 shape = RoundedCornerShape(50) // Sudut bulat pada tombol
             ) {
@@ -210,13 +194,13 @@ fun RegisterActivity(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 IconButton(onClick = { /* Handle Google Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Google")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Google")
                 }
                 IconButton(onClick = { /* Handle Facebook Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Facebook")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Facebook")
                 }
                 IconButton(onClick = { /* Handle Apple Login */ }) {
-                                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Apple")
+                    Icon(painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Apple")
                 }
             }
 
@@ -230,8 +214,8 @@ fun RegisterActivity(navController: NavController) {
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun previewSplashScreen(){
-    RegisterActivity(navController = rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TampilanRegister() {
+//    RegisterActivity(navController = rememberNavController())
+//}
