@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
+import com.example.myapplication.ui.Home.CropFailure.Product
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 //class EdibleFood : ComponentActivity() {
@@ -66,10 +69,11 @@ fun EdibleFoodScreen(navController: NavController) {
                     containerColor = Color.White
                 ),
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back action */ }) {
+                    IconButton(onClick = { navController.popBackStack() }) { // Navigasi ke layar sebelumnya
                         Icon(
-                            painter = painterResource(id = R.drawable.expiredfood),
-                            contentDescription = "Back"
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black
                         )
                     }
                 }
@@ -84,16 +88,16 @@ fun EdibleFoodScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             val productList = listOf(
-                Product("Apple", "Rp 10.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Banana", "Rp 5.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Grapes", "Rp 7.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Peach", "Rp 12.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Watermelon", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Strawberry", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Rice", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Banana", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Apple", "Rp 10.000/Box", R.drawable.ic_drink_foreground),
+                Product("Banana", "Rp 5.000/Box", R.drawable.ic_bread_foreground),
+                Product("Grapes", "Rp 7.000/Box", R.drawable.ic_burger_foreground),
+                Product("Peach", "Rp 12.000/Box", R.drawable.ic_mie_foreground),
+                Product("Watermelon", "Rp 15.000/Box", R.drawable.ic_drink_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_bread_foreground),
+                Product("Strawberry", "Rp 15.000/Box", R.drawable.ic_burger_foreground),
+                Product("Rice", "Rp 6.000/Box", R.drawable.ic_mie_foreground),
+                Product("Banana", "Rp 15.000/Box", R.drawable.ic_drink_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_bread_foreground),
             )
 
             LazyVerticalGrid(

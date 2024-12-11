@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -48,7 +49,7 @@ fun Notification(navController: NavController) {
                 actions = {
                     IconButton(onClick = { /* Handle more action */ }) {
                         Icon(
-                            painter = painterResource(id = R.drawable.icon_more),
+                            imageVector = Icons.Default.MoreVert,
                             contentDescription = "More"
                         )
                     }
@@ -82,20 +83,6 @@ fun Notification(navController: NavController) {
                     shape = RoundedCornerShape(8.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                IconButton(
-                    onClick = { /* Handle filter action */ },
-                    modifier = Modifier
-                        .size(48.dp)
-                        .background(
-                            color = Color.LightGray.copy(alpha = 0.5f),
-                            shape = CircleShape
-                        )
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filter_foreground),
-                        contentDescription = "Filter"
-                    )
-                }
             }
 
             // Notification list
