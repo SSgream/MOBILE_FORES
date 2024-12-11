@@ -8,6 +8,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,17 +37,18 @@ fun Notification(navController: NavController) {
             TopAppBar(
                 title = { Text("Notification", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back action */ }) {
+                    IconButton(onClick = { navController.popBackStack() }) { // Navigasi ke layar sebelumnya
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                            contentDescription = "Back"
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black
                         )
                     }
                 },
                 actions = {
                     IconButton(onClick = { /* Handle more action */ }) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                            painter = painterResource(id = R.drawable.icon_more),
                             contentDescription = "More"
                         )
                     }
@@ -63,19 +69,17 @@ fun Notification(navController: NavController) {
                     .padding(bottom = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextField(
+                OutlinedTextField(
                     value = "",
                     onValueChange = { /* Handle search */ },
                     placeholder = { Text("Search") },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.LightGray.copy(alpha = 0.5f),
-                        unfocusedContainerColor = Color.LightGray.copy(alpha = 0.5f),
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent
-                    )
+                    leadingIcon = {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
+                    },
+                    shape = RoundedCornerShape(8.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(
@@ -88,7 +92,7 @@ fun Notification(navController: NavController) {
                         )
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                        painter = painterResource(id = R.drawable.ic_filter_foreground),
                         contentDescription = "Filter"
                     )
                 }
@@ -109,7 +113,7 @@ fun Notification(navController: NavController) {
                         time = "12:20",
                         date = "10/05/2024",
                         isUnread = index < 2,
-                        iconResId = R.drawable.ic_launcher_foreground
+                        iconResId = R.drawable.ic_discount_foreground
                     )
                 }
                 item {
@@ -122,7 +126,7 @@ fun Notification(navController: NavController) {
                         time = "10:10",
                         date = "10/05/2024",
                         isUnread = false,
-                        iconResId = R.drawable.ic_launcher_foreground
+                        iconResId = R.drawable.ic_discount_foreground
                     )
                 }
             }

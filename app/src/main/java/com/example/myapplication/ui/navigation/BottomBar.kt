@@ -8,22 +8,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,37 +25,50 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
-import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class BottomBar : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
 
+            val currentRoute = navController.currentBackStackEntry?.destination?.route ?: BottomBarScreen.Home.route
+
+            CustomBottomBar(
+                selectedRoute = currentRoute,
+                onItemSelected = { route ->
+                    navController.navigate(route) {
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
+            )
 
         }
     }
 }
 
-enum class BottomBarScreen(val route: String, val label: String, val icon: ImageVector) {
-    Home("home", "Home", Icons.Default.Home),
-    Order("order", "Order", Icons.Default.Warning),
-    Post("post", "Post", Icons.Default.CheckCircle),
-    Notification("notification", "Notification", Icons.Default.Warning),
-    Profile("profile", "Profile", Icons.Default.Warning)
+enum class BottomBarScreen(val route: String, val icon: Int) {
+    Home("home", R.drawable.ic_home_foreground),
+    Order("order", R.drawable.ic_order_foreground),
+    Post("post", R.drawable.ic_post_foreground),
+    Notification("notification", R.drawable.ic_notif_foreground),
+    Profile("profile", R.drawable.ic_profil_foreground)
 }
 
 
 @Composable
-fun CustomBottomBar(selectedRoute: String, onItemSelected: (String) -> Unit) {
+fun CustomBottomBar(
+    selectedRoute: String,  // Menambahkan parameter selectedRoute
+    onItemSelected: (String) -> Unit
+) {
     val items = listOf(
         BottomBarScreen.Home,
         BottomBarScreen.Order,
@@ -87,7 +94,10 @@ fun CustomBottomBar(selectedRoute: String, onItemSelected: (String) -> Unit) {
                     modifier = Modifier
                         .weight(1f)
                         .wrapContentSize(Alignment.Center)
-                        .clickable { onItemSelected(screen.route) } // Menangani klik
+//                        .clickable { onItemSelected(screen.route) }
+                        .clickable{
+                            onItemSelected(screen.route)
+                        }
                 ) {
                     if (isSelected) {
                         Box(
@@ -101,23 +111,19 @@ fun CustomBottomBar(selectedRoute: String, onItemSelected: (String) -> Unit) {
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
-                                imageVector = screen.icon,
-                                contentDescription = screen.label,
+//                                imageVector = screen.icon,
+                                painter = androidx.compose.ui.res.painterResource(id = screen.icon),
+                                contentDescription = null,
                                 tint = Color.White,
-                                modifier = Modifier.size(32.dp)
+                                modifier = Modifier.size(50.dp)
                             )
                         }
-                        Text(
-                            text = screen.label,
-                            color = colorResource(id = R.color.sigelap1),
-                            modifier = Modifier.align(Alignment.BottomCenter)
-                        )
                     } else {
                         Icon(
-                            imageVector = screen.icon,
-                            contentDescription = screen.label,
+                            painter = androidx.compose.ui.res.painterResource(id = screen.icon),
+                            contentDescription = null,
                             tint = Color.Gray,
-                            modifier = Modifier.size(32.dp)
+                            modifier = Modifier.size(50.dp)
                         )
                     }
                 }
@@ -125,6 +131,7 @@ fun CustomBottomBar(selectedRoute: String, onItemSelected: (String) -> Unit) {
         }
     }
 }
+
 
 
 //@Preview

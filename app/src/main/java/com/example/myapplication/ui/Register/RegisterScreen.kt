@@ -165,7 +165,10 @@ fun RegisterScreen(navController: NavController) {
                         },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp)
+                            .padding(vertical = 8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.sigelap1) // Warna background
+                        )
                     ) {
                         Text("Register", color = Color.White)
                     }
