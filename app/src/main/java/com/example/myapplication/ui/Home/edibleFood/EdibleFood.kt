@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.Home.CropFailure
+package com.example.myapplication.ui.Home.EdibleFood
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,16 +24,13 @@ import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class CropFailure : ComponentActivity() {
+class EdibleFood : ComponentActivity() {
     private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inisialisasi navController dengan Navigation Component
         setContent {
             MyApplicationTheme {
-                CropFailureScreen(navController)
+                EdibleFoodScreen(navController)
             }
         }
     }
@@ -41,7 +38,7 @@ class CropFailure : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CropFailureScreen(navController: NavController) {
+fun EdibleFoodScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,13 +49,13 @@ fun CropFailureScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.cropfailure),
-                            contentDescription = "Crop Failure",
+                            painter = painterResource(id = R.drawable.ediblefood), // Ganti dengan gambar yang sesuai
+                            contentDescription = "Edible Food",
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Crop Failure",
+                            text = "Edible Food",
                             fontSize = 20.sp,
                             modifier = Modifier.padding(start = 4.dp)
                         )
@@ -165,8 +162,8 @@ data class Product(val name: String, val price: String, val imageResId: Int)
 
 //@Preview(showBackground = true)
 //@Composable
-//fun CropFailurePreview() {
+//fun EdibleFoodPreview() {
 //    MyApplicationTheme {
-//        CropFailureScreen()
+//        EdibleFoodScreen()
 //    }
 //}

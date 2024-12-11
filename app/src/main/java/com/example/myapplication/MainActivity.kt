@@ -22,11 +22,17 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.Home.CategoriesSection
+import com.example.myapplication.ui.Home.CropFailure.CropFailureScreen
+import com.example.myapplication.ui.Home.EdibleFood.EdibleFood
+import com.example.myapplication.ui.Home.EdibleFood.EdibleFoodScreen
+import com.example.myapplication.ui.Home.ExpiredFood.ExpiredFoodScreen
 import com.example.myapplication.ui.Home.HomeScreen
 import com.example.myapplication.ui.Login.LoginScreen
 import com.example.myapplication.ui.Notification.Notification
 import com.example.myapplication.ui.Posts.Postingan
 import com.example.myapplication.ui.Profile.Profile
+import com.example.myapplication.ui.Register.RegisterScreen
 import com.example.myapplication.ui.Splashscreen.SplashScreen
 import com.example.myapplication.ui.navigation.BottomBar
 import com.example.myapplication.ui.navigation.BottomBarScreen
@@ -41,21 +47,27 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance() // Inisialisasi FirebaseAuth
+
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
+                val currentUser = auth.currentUser // Periksa pengguna yang sedang login
+
+                // Pilih startDestination berdasarkan status login
+                val startDestination = if (currentUser != null) "login" else "login"
+
                 Scaffold(
                     bottomBar = {
-                        BottomBar(navController)
+                        if (currentUser != null) BottomBar(navController)
                     }
-                )
-                { innerPadding ->
+                ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "splash",
+                        startDestination = startDestination,
                         Modifier.padding(innerPadding)
-                    )
-                    {
+                    ) {
                         composable("splash") {
                             SplashScreen(navController)
                         }
@@ -64,6 +76,18 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("home") {
                             HomeScreen(navController)
+                        }
+                        composable("categories_screen") {
+                            CategoriesScreen(navController) // Fungsi layar kategori
+                        }
+                        composable("edible_food_screen") {
+                            EdibleFoodScreen(navController) // Fungsi layar edible food
+                        }
+                        composable("expired_food_screen") {
+                            ExpiredFoodScreen(navController) // Fungsi layar expired food
+                        }
+                        composable("crop_failure_screen") {
+                            CropFailureScreen(navController) // Fungsi layar crop failure
                         }
                         composable(BottomBarScreen.Order.route) {
                             order(navController)
@@ -77,11 +101,20 @@ class MainActivity : ComponentActivity() {
                         composable(BottomBarScreen.Profile.route) {
                             Profile(navController)
                         }
-                    }    }
+                        composable("register") {
+                            RegisterScreen(navController)
+                        }
+                    }
+                }
             }
-
         }
     }
+}
+@Composable
+fun CategoriesScreen(navController: NavController) {
+    CategoriesSection(navController) // Pastikan ini adalah versi yang telah direvisi dengan navigasi
+}
+
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -101,7 +134,7 @@ class MainActivity : ComponentActivity() {
 //            finish()
 //        }
 //    }
-}
+
 
 @Composable
 fun BottomBar(navController: NavController) {

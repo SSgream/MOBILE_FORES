@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.Home.CropFailure
+package com.example.myapplication.ui.Home.ExpiredFood
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,18 +22,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.myapplication.R
+import com.example.myapplication.ui.Home.EdibleFood.Product
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class CropFailure : ComponentActivity() {
+class ExpiredFood : ComponentActivity() {
     private lateinit var navController: NavController
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Inisialisasi navController dengan Navigation Component
         setContent {
             MyApplicationTheme {
-                CropFailureScreen(navController)
+                ExpiredFoodScreen(navController)
             }
         }
     }
@@ -41,7 +39,7 @@ class CropFailure : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CropFailureScreen(navController: NavController) {
+fun ExpiredFoodScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -52,13 +50,13 @@ fun CropFailureScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.cropfailure),
-                            contentDescription = "Crop Failure",
+                            painter = painterResource(id = R.drawable.expiredfood),
+                            contentDescription = "Expired Food",
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Crop Failure",
+                            text = "Expired Food",
                             fontSize = 20.sp,
                             modifier = Modifier.padding(start = 4.dp)
                         )
@@ -165,8 +163,8 @@ data class Product(val name: String, val price: String, val imageResId: Int)
 
 //@Preview(showBackground = true)
 //@Composable
-//fun CropFailurePreview() {
+//fun ExpiredFoodPreview() {
 //    MyApplicationTheme {
-//        CropFailureScreen()
+//        ExpiredFoodScreen()
 //    }
 //}

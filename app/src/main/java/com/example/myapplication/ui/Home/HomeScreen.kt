@@ -1,32 +1,20 @@
 package com.example.myapplication.ui.Home
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,19 +28,18 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
+import androidx.compose.ui.res.painterResource
+
 
 @Composable
 fun HomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())  // Agar layout bisa digulir ke bawah
-            .padding(top = 32.dp)
-            .padding(horizontal = 16.dp)
+            .verticalScroll(rememberScrollState())
+            .padding(top = 32.dp, start = 16.dp, end = 16.dp)
     ) {
-
         Text(text = "Deliver to", fontSize = 16.sp)
-        // Bagian header (lokasi dan ikon keranjang)
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth(),
@@ -66,36 +53,24 @@ fun HomeScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Banner Carousel
         OfferCard()
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Search Bar
         SearchBar()
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Kategori Produk
-        CategoriesSection()
+        CategoriesSection(navController)
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Penawaran Spesial
-        SpecialOffersSection()
     }
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.White),
-//        contentAlignment = Alignment.Center
-//    ) {
-//        Text(text = "Home Screen", fontSize = 24.sp, color = Color.Black)
-//    }
 }
 
 @Composable
 fun SearchBar() {
+    var searchText by remember { mutableStateOf("") }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,11 +80,11 @@ fun SearchBar() {
         Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray)
         Spacer(modifier = Modifier.width(8.dp))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = searchText,
+            onValueChange = { searchText = it },
             placeholder = { Text("Search") },
-
-            )
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
@@ -117,12 +92,10 @@ fun SearchBar() {
 fun OfferCard() {
     Card(
         shape = RoundedCornerShape(12.dp),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
     ) {
         Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .width(200.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = "WORLD FOOD DAY",
@@ -147,97 +120,63 @@ fun OfferCard() {
 }
 
 @Composable
-fun CategoriesSection() {
+fun CategoriesSection(navController: NavController) {
     Column {
-        CategoryItem("Edible Food", R.drawable.ediblefood)
+        CategoryItem(
+            title = "Edible Food",
+            imageRes = R.drawable.ediblefood,
+            onClick = { navController.navigate("edible_food_screen")
+                Log.d("CategoryItem", "Edible Food clicked")
+            }
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        CategoryItem("Expired Food", R.drawable.expiredfood)
+        CategoryItem(
+            title = "Expired Food",
+            imageRes = R.drawable.expiredfood,
+            onClick = { navController.navigate("expired_food_screen") }
+        )
         Spacer(modifier = Modifier.height(16.dp))
-        CategoryItem("Crop Failure", R.drawable.cropfailure)
+        CategoryItem(
+            title = "Crop Failure",
+            imageRes = R.drawable.cropfailure,
+            onClick = { navController.navigate("crop_failure_screen") }
+        )
     }
 }
 
 @Composable
-fun CategoryItem(title: String, imageRes: Int) {
-    Column(
+fun CategoryItem(title: String, imageRes: Int, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .border(1.dp, colorResource(R.color.sigelap2), RoundedCornerShape(8.dp))
             .padding(vertical = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-
-    ) {
-        Image(
-            painter = painterResource(id = imageRes),
-            contentDescription = title,
-            modifier = Modifier.size(50.dp)
-        )
-        Spacer(modifier = Modifier.width(32.dp))
-        Text(text = title, fontSize = 18.sp)
-    }
-}
-
-@Composable
-fun SpecialOffersSection() {
-    Row(
-        horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(text = "Special Offers", fontSize = 20.sp, fontWeight = FontWeight.Bold)
-        Text(text = "View All", color = Color.Green, fontSize = 16.sp)
-    }
-
-    Spacer(modifier = Modifier.height(16.dp))
-
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        item {
-            SpecialOfferItem("Strawberry", "Rp 10.000/Box", R.drawable.strowbery)
-        }
-        item {
-            SpecialOfferItem("Corn", "Rp 5.000/Buah", R.drawable.padi)
-        }
-        item {
-            SpecialOfferItem("Corn", "Rp 5.000/Buah", R.drawable.padi)
-        }
-        item {
-            SpecialOfferItem("Corn", "Rp 5.000/Buah", R.drawable.padi)
-        }
-        // Tambahkan lebih banyak item sesuai kebutuhan
-    }
-}
-
-@Composable
-fun SpecialOfferItem(productName: String, price: String, imageRes: Int) {
-    Card(
-        modifier = Modifier
-            .size(150.dp)
-            .height(180.dp)
-
+        shape = RoundedCornerShape(8.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(8.dp)
+            verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = imageRes),
-                contentDescription = productName,
-                modifier = Modifier.size(150.dp),
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = productName, fontSize = 16.sp)
-            Text(text = price, fontSize = 14.sp, color = Color.Green)
+            if (imageRes != 0) {
+                Image(
+                    painter = painterResource(id = imageRes),
+                    contentDescription = title,
+                    modifier = Modifier.size(50.dp)
+                )
+            } else {
+                Text("Image not available", color = Color.Red)
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(text = title, fontSize = 18.sp, color = colorResource(R.color.sigelap2))
         }
     }
 }
 
+
 //@Preview(showBackground = true)
 //@Composable
-//fun TampilanHomeScreen() {
+//fun PreviewHomeScreen() {
 //    HomeScreen(navController = rememberNavController())
 //}
