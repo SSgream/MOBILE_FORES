@@ -20,16 +20,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
-import com.example.myapplication.ui.Home.EdibleFood.Product
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class CropFailure : ComponentActivity() {
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inisialisasi navController dengan Navigation Component
         setContent {
             MyApplicationTheme {
-                CropFailureScreen()
+                val navController = rememberNavController()  // Mengatur NavController
+                CropFailureScreen(navController)
             }
         }
     }
@@ -37,7 +43,7 @@ class CropFailure : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CropFailureScreen() {
+fun CropFailureScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -159,10 +165,10 @@ fun ProductItem(name: String, price: String, imageResId: Int) {
 
 data class Product(val name: String, val price: String, val imageResId: Int)
 
-@Preview(showBackground = true)
-@Composable
-fun CropFailurePreview() {
-    MyApplicationTheme {
-        CropFailureScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun CropFailurePreview() {
+//    MyApplicationTheme {
+//        CropFailureScreen()
+//    }
+//}

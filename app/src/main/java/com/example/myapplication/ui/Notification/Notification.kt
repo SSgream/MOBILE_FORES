@@ -20,23 +20,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class NotificationActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                NotificationScreen()
-            }
-        }
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotificationScreen() {
+fun Notification(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -220,10 +210,10 @@ fun NotificationItem(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun NotificationPreview() {
-    MyApplicationTheme {
-        NotificationScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun NotificationPreview() {
+//    MyApplicationTheme {
+//        NotificationScreen()
+//    }
+//}

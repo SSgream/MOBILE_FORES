@@ -18,17 +18,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.ui.Home.CategoriesSection
+import com.example.myapplication.ui.Home.CropFailure.CropFailureScreen
+import com.example.myapplication.ui.Home.EdibleFood.EdibleFoodScreen
+import com.example.myapplication.ui.Home.ExpiredFood.ExpiredFoodScreen
 import com.example.myapplication.ui.Home.HomeScreen
 import com.example.myapplication.ui.Login.LoginScreen
 import com.example.myapplication.ui.Notification.Notification
-import com.example.myapplication.ui.Post.Postingan
+import com.example.myapplication.ui.Posts.Postingan
 import com.example.myapplication.ui.Profile.Profile
+import com.example.myapplication.ui.Register.RegisterScreen
 import com.example.myapplication.ui.Splashscreen.SplashScreen
 import com.example.myapplication.ui.navigation.BottomBar
 import com.example.myapplication.ui.navigation.BottomBarScreen
+import com.example.myapplication.ui.navigation.CustomBottomBar
 import com.example.myapplication.ui.orders.order
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.google.firebase.auth.FirebaseAuth
@@ -39,21 +46,27 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        auth = FirebaseAuth.getInstance() // Inisialisasi FirebaseAuth
+
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
+                val currentUser = auth.currentUser // Periksa pengguna yang sedang login
+
+                // Pilih startDestination berdasarkan status login
+                val startDestination = if (currentUser != null) "login" else "login"
+
                 Scaffold(
                     bottomBar = {
-                        BottomBar(navController)
+                        if (currentUser != null) BottomBar(navController)
                     }
-                )
-                { innerPadding ->
+                ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "splash",
+                        startDestination = startDestination,
                         Modifier.padding(innerPadding)
-                    )
-                    {
+                    ) {
                         composable("splash") {
                             SplashScreen(navController)
                         }
@@ -62,6 +75,18 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("home") {
                             HomeScreen(navController)
+                        }
+                        composable("categories_screen") {
+                            CategoriesScreen(navController) // Fungsi layar kategori
+                        }
+                        composable("edible_food_screen") {
+                            EdibleFoodScreen(navController) // Fungsi layar edible food
+                        }
+                        composable("expired_food_screen") {
+                            ExpiredFoodScreen(navController) // Fungsi layar expired food
+                        }
+                        composable("crop_failure_screen") {
+                            CropFailureScreen(navController) // Fungsi layar crop failure
                         }
                         composable(BottomBarScreen.Order.route) {
                             order(navController)
@@ -75,11 +100,20 @@ class MainActivity : ComponentActivity() {
                         composable(BottomBarScreen.Profile.route) {
                             Profile(navController)
                         }
-                    }    }
+                        composable("register") {
+                            RegisterScreen(navController)
+                        }
+                    }
+                }
             }
-
         }
     }
+}
+@Composable
+fun CategoriesScreen(navController: NavController) {
+    CategoriesSection(navController) // Pastikan ini adalah versi yang telah direvisi dengan navigasi
+}
+
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -99,4 +133,24 @@ class MainActivity : ComponentActivity() {
 //            finish()
 //        }
 //    }
+
+
+@Composable
+fun BottomBar(navController: NavController) {
+    val items = listOf(
+        BottomBarScreen.Home,
+        BottomBarScreen.Order,
+        BottomBarScreen.Post,
+        BottomBarScreen.Notification,
+        BottomBarScreen.Profile
+    )
+
+    val currentRoute = navController.currentBackStackEntry?.destination?.route
+    CustomBottomBar(selectedRoute = currentRoute ?: "") { selectedRoute ->
+        navController.navigate(selectedRoute) {
+            popUpTo(navController.graph.startDestinationId) { saveState = true }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
 }

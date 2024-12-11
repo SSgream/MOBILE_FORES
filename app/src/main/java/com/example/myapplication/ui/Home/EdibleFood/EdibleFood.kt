@@ -20,23 +20,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class EdibleFood : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                EdibleFoodScreen()
-            }
-        }
-    }
-}
+//class EdibleFood : ComponentActivity() {
+//    private lateinit var navController: NavController
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            MyApplicationTheme {
+//                EdibleFoodScreen(navController)
+//            }
+//        }
+//    }
+//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EdibleFoodScreen() {
+fun EdibleFoodScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -81,16 +84,16 @@ fun EdibleFoodScreen() {
                 .padding(16.dp)
         ) {
             val productList = listOf(
-                Product("Apple", "Rp 10.000/Box", R.drawable.strowbery),
-                Product("Banana", "Rp 5.000/Box", R.drawable.padi),
-                Product("Grapes", "Rp 7.000/Box", R.drawable.strowbery),
-                Product("Peach", "Rp 12.000/Box", R.drawable.padi),
-                Product("Watermelon", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.padi),
-                Product("Strawberry", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Rice", "Rp 6.000/Box", R.drawable.padi),
-                Product("Banana", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.padi),
+                Product("Apple", "Rp 10.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Banana", "Rp 5.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Grapes", "Rp 7.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Peach", "Rp 12.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Watermelon", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Strawberry", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Rice", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Banana", "Rp 15.000/Box", R.drawable.ic_launcher_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_launcher_foreground),
             )
 
             LazyVerticalGrid(
@@ -162,6 +165,6 @@ data class Product(val name: String, val price: String, val imageResId: Int)
 @Composable
 fun EdibleFoodPreview() {
     MyApplicationTheme {
-        EdibleFoodScreen()
+        EdibleFoodScreen(navController = rememberNavController())
     }
 }
