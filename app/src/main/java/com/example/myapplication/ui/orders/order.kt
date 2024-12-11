@@ -179,8 +179,8 @@ fun OrderCard(orderId: String, price: String, status: String, imageRes: Int) {
         }
     }
 }
-@Preview(showBackground = true)
-@Composable
-fun Previeworder() {
-    order(navController = rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun Previeworder() {
+//    order(navController = rememberNavController())
+//}
