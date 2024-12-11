@@ -70,22 +70,19 @@ fun HomeScreen(navController: NavController) {
 
 @Composable
 fun SearchBar() {
+
     var searchText by remember { mutableStateOf("") }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(colorResource(R.color.bg), shape = RoundedCornerShape(8.dp)),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray)
-        Spacer(modifier = Modifier.width(8.dp))
-        TextField(
-            value = searchText,
-            onValueChange = { searchText = it },
-            placeholder = { Text("Search") },
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+
+    OutlinedTextField(
+        value = "",
+        onValueChange = { /* Handle search */ },
+        placeholder = { Text("Search") },
+        modifier = Modifier.fillMaxWidth(),
+        leadingIcon = {
+            Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
+        },
+        shape = RoundedCornerShape(8.dp)
+    )
 }
 
 @Composable

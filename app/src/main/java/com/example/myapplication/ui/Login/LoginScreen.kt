@@ -163,7 +163,10 @@ fun LoginScreen(navController: NavController) {
                                 }
                             }
                         },
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = colorResource(id = R.color.sigelap1) // Warna background
+                        )
                     ) {
                         Text("Sign in", color = Color.White)
                     }
@@ -204,7 +207,7 @@ fun LoginScreen(navController: NavController) {
                     }
 
                     TextButton(onClick = { navController.navigate("register") }) {
-                        Text(text = "Don't have an account? Register", color = Color(0xFF4CAF50))
+                        Text(text = "Don't have an account? Register", color = colorResource(id = R.color.sigelap2))
                     }
                 }
             }

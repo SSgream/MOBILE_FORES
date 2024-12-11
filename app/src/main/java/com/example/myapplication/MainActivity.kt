@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.Home.CategoriesSection
 import com.example.myapplication.ui.Home.CropFailure.CropFailureScreen
@@ -59,7 +60,11 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        if (currentUser != null) BottomBar(navController)
+                        if (currentUser != null && navController.currentDestination?.route != "login"
+                            && navController.currentDestination?.route != "register"
+                            && navController.currentDestination?.route != "splash"){
+                            BottomBar(navController)
+                        }
                     }
                 ) { innerPadding ->
                     NavHost(
@@ -145,8 +150,10 @@ fun BottomBar(navController: NavController) {
         BottomBarScreen.Profile
     )
 
-    val currentRoute = navController.currentBackStackEntry?.destination?.route
-    CustomBottomBar(selectedRoute = currentRoute ?: "") { selectedRoute ->
+//    val currentRoute = navController.currentBackStackEntry?.destination?.route
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
+    CustomBottomBar(selectedRoute = currentRoute ?: BottomBarScreen.Home.route) { selectedRoute ->
         navController.navigate(selectedRoute) {
             popUpTo(navController.graph.startDestinationId) { saveState = true }
             launchSingleTop = true

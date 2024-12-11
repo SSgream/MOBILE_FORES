@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,21 +75,21 @@ fun OrderContent(modifier: Modifier = Modifier) {
             orderId = "XF 001200524",
             price = "Rp 49.000",
             status = "Active",
-            imageRes = R.drawable.strowbery
+            imageRes = R.drawable.ic_kopi_foreground
         )
         Spacer(modifier = Modifier.height(8.dp))
         OrderCard(
             orderId = "CF 002210124",
             price = "Rp 96.000",
             status = "Completed",
-            imageRes = R.drawable.strowbery
+            imageRes = R.drawable.ic_atom_foreground
         )
         Spacer(modifier = Modifier.height(8.dp))
         OrderCard(
             orderId = "EF 008240724",
             price = "Rp 135.000",
             status = "Cancelled",
-            imageRes = R.drawable.strowbery
+            imageRes = R.drawable.ic_flower_foreground
         )
     }
 }
@@ -115,7 +116,7 @@ fun FilterButton(label: String, selected: Boolean, modifier: Modifier = Modifier
 //            color = if (selected) Color.Green else Color.Gray
         ),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = if (selected) Color.Green else Color.Transparent,
+            containerColor = if (selected) colorResource(id = R.color.sigelap1) else Color.Transparent,
             contentColor = if (selected) Color.White else Color.Black
         ),
         modifier = modifier
@@ -136,7 +137,7 @@ fun FilterButton(label: String, selected: Boolean, modifier: Modifier = Modifier
         // Menampilkan teks label
         Text(
             text = label,
-            fontSize = 7.sp, // Ukuran font lebih kecil agar sesuai
+            fontSize = 15.sp, // Ukuran font lebih kecil agar sesuai
             fontWeight = FontWeight.Normal
         )
     }
@@ -169,7 +170,7 @@ fun OrderCard(orderId: String, price: String, status: String, imageRes: Int) {
             Text(
                 text = status,
                 color = when (status) {
-                    "Active" -> Color.Green
+                    "Active" -> colorResource(id = R.color.sigelap1)
                     "Completed" -> Color.Blue
                     "Cancelled" -> Color.Red
                     else -> Color.Gray
