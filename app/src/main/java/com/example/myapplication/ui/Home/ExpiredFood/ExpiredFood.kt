@@ -10,6 +10,8 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,21 +23,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.R
-import com.example.myapplication.ui.Home.EdibleFood.Product
+import com.example.myapplication.ui.Home.CropFailure.Product
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
-class ExpiredFood : ComponentActivity() {
-    private lateinit var navController: NavController
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            MyApplicationTheme {
-                ExpiredFoodScreen(navController)
-            }
-        }
-    }
-}
+//class ExpiredFood : ComponentActivity() {
+//    private lateinit var navController: NavController
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setContent {
+//            MyApplicationTheme {
+//                ExpiredFoodScreen(navController)
+//            }
+//        }
+//    }
+//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,13 +53,13 @@ fun ExpiredFoodScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.expiredfood),
+                            painter = painterResource(id = R.drawable.expiredfood), // Ganti dengan gambar yang sesuai
                             contentDescription = "Expired Food",
                             modifier = Modifier.size(24.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Expired Food",
+                            text = "Edible Food",
                             fontSize = 20.sp,
                             modifier = Modifier.padding(start = 4.dp)
                         )
@@ -66,10 +69,11 @@ fun ExpiredFoodScreen(navController: NavController) {
                     containerColor = Color.White
                 ),
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle back action */ }) {
+                    IconButton(onClick = { navController.popBackStack() }) { // Navigasi ke layar sebelumnya
                         Icon(
-                            painter = painterResource(id = R.drawable.expiredfood),
-                            contentDescription = "Back"
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black
                         )
                     }
                 }
@@ -84,16 +88,16 @@ fun ExpiredFoodScreen(navController: NavController) {
                 .padding(16.dp)
         ) {
             val productList = listOf(
-                Product("Apple", "Rp 10.000/Box", R.drawable.strowbery),
-                Product("Banana", "Rp 5.000/Box", R.drawable.padi),
-                Product("Grapes", "Rp 7.000/Box", R.drawable.strowbery),
-                Product("Peach", "Rp 12.000/Box", R.drawable.padi),
-                Product("Watermelon", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.padi),
-                Product("Strawberry", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Rice", "Rp 6.000/Box", R.drawable.padi),
-                Product("Banana", "Rp 15.000/Box", R.drawable.strowbery),
-                Product("Papaya", "Rp 6.000/Box", R.drawable.padi),
+                Product("Apple", "Rp 10.000/Box", R.drawable.ic_drink_foreground),
+                Product("Banana", "Rp 5.000/Box", R.drawable.ic_bread_foreground),
+                Product("Grapes", "Rp 7.000/Box", R.drawable.ic_burger_foreground),
+                Product("Peach", "Rp 12.000/Box", R.drawable.ic_mie_foreground),
+                Product("Watermelon", "Rp 15.000/Box", R.drawable.ic_drink_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_bread_foreground),
+                Product("Strawberry", "Rp 15.000/Box", R.drawable.ic_burger_foreground),
+                Product("Rice", "Rp 6.000/Box", R.drawable.ic_mie_foreground),
+                Product("Banana", "Rp 15.000/Box", R.drawable.ic_drink_foreground),
+                Product("Papaya", "Rp 6.000/Box", R.drawable.ic_bread_foreground),
             )
 
             LazyVerticalGrid(
@@ -161,10 +165,10 @@ fun ProductItem(name: String, price: String, imageResId: Int) {
 
 data class Product(val name: String, val price: String, val imageResId: Int)
 
-//@Preview(showBackground = true)
-//@Composable
-//fun ExpiredFoodPreview() {
-//    MyApplicationTheme {
-//        ExpiredFoodScreen()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun ExpiredFoodPreview() {
+    MyApplicationTheme {
+        ExpiredFoodScreen(navController = rememberNavController())
+    }
+}

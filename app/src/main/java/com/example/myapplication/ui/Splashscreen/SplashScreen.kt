@@ -72,8 +72,8 @@ fun SplashScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun tampilan(){
-    SplashScreen(navController = rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun tampilan(){
+//    SplashScreen(navController = rememberNavController())
+//}

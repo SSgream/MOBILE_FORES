@@ -60,9 +60,8 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        if (currentUser != null && navController.currentDestination?.route != "login"
-                            && navController.currentDestination?.route != "register"
-                            && navController.currentDestination?.route != "splash"){
+                        val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+                        if (currentUser != null && currentRoute !in listOf("login", "register", "splash")) {
                             BottomBar(navController)
                         }
                     }

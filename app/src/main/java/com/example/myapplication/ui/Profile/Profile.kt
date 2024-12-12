@@ -3,8 +3,10 @@ package com.example.myapplication.ui.Profile
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,6 +32,7 @@ fun Profile(navController: NavController) {
         Modifier
             .fillMaxSize()
             .background(Color.White)
+            .verticalScroll(rememberScrollState())
     ) {
         TopBar()
         ProfileInfo()
@@ -78,7 +82,7 @@ fun ProfileInfo() {
     ) {
         Box {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground), // Replace with your avatar resource
+                painter = painterResource(R.drawable.ic_profil_foreground), // Replace with your avatar resource
                 contentDescription = "Profile Picture",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -87,7 +91,7 @@ fun ProfileInfo() {
             )
             FloatingActionButton(
                 onClick = { /* Edit profile picture */ },
-                containerColor = Color.Green,
+                containerColor = colorResource(id = R.color.sigelap3),
                 modifier = Modifier
                     .size(32.dp)
                     .align(Alignment.BottomEnd)
@@ -128,10 +132,10 @@ fun ProfileInfo() {
             Icon(
                 imageVector = Icons.Default.Clear,
                 contentDescription = "Logout",
-                tint = Color.Green
+                tint = colorResource(id = R.color.sigelap3)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "Logout", color = Color.Green)
+            Text(text = "Logout", color = colorResource(id = R.color.sigelap3))
         }
     }
 }
